@@ -39,8 +39,8 @@ class Api::V1::PrayersController < ApplicationController
         private
             def prayer_params
                 params.require(:prayer).permit( 
-                    :body, :counter, 
-                    :human_name, :human_city, :human_state )
+                    :body, :star_counter, 
+                    :name, :city, :state )
             end
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
