@@ -19,29 +19,38 @@ class Api::V1::PrayersController < ApplicationController
     end
 
     def create
-        @prayer = Prayer.create(prayer_params)
-        render json: @prayer
+        # prayer = Prayer.create(prayer_params)
+
+        prayer = Prayer.new(prayer_params)
+        prayer.star_counter = 0
+        prayer.name == "" ? prayer.name = "ANONYMOUS" : false
+
+        if prayer.save
+            render json: prayer
+        else
+            render json: { message: 'PRAYER COULD NOT BE SAVED TO DATABASE :C' }
+        end
     end
 
     def update
-        @prayer = Prayer.find_by_id(params[:id])
-        @prayer.update(prayer_params)
-        render json: @prayer
+        prayer = Prayer.find_by_id(params[:id])
+        prayer.update(prayer_params)
+        render json: prayer
     end
 
     def destroy
-        @prayer = Prayer.find(params[:id])
-        @prayer.delete
-        render json: { prayerId: @prayer.id }
+        prayer = Prayer.find(params[:id])
+        prayer.delete
+        render json: { prayerId: prayer.id }
     end
 
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         private
             def prayer_params
-                params.require(:prayer).permit( 
+                params.require(:prayer).permit(
                     :body, :star_counter, 
                     :name, :city, :state )
             end
-    #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  
 
 end
