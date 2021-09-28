@@ -19,8 +19,15 @@ class Api::V1::CommentsController < ApplicationController
     end
 
     def create
-        @comment = Comment.create(comment_params)
-        render json: @comment
+        comment = Comment.new(comment_params)
+        comment.name == "" ? comment.name = "ANONYMOUS" : false
+
+        if comment.save
+            render json: prayer
+        else
+            render json: { message: 'COMMENT COULD NOT BE SAVED TO THE DATABASE T__T'}
+        end
+        
     end
 
     def update
