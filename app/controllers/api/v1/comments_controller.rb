@@ -40,7 +40,9 @@ class Api::V1::CommentsController < ApplicationController
             def comment_params
                 params.require(:comment).permit( 
                     :body, 
-                    :name, :city, :state )
+                    :name, :city, :state,
+                    :prayer_id
+                )
             end
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
