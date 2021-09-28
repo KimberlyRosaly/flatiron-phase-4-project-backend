@@ -23,7 +23,7 @@ class Api::V1::CommentsController < ApplicationController
         comment.name == "" ? comment.name = "ANONYMOUS" : false
 
         if comment.save
-            render json: prayer
+            render json: comment
         else
             render json: { message: 'COMMENT COULD NOT BE SAVED TO THE DATABASE T__T'}
         end
